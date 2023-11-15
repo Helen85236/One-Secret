@@ -46,5 +46,6 @@ def secrets(secret_url):
 	else:
 		return 'Not Found', 404
 
+
 if __name__ == '__main__':
 	app.run()
