@@ -16,7 +16,7 @@ Request:
 curl -H "Content-Type: application/json"  \
   --request POST \
   --data '{"secret": "Some text to hide!", "key": "super_secret_pswd"}' \
-  https://onetimesecret.herokuapp.com/generate
+  http://127.0.0.1/generate
 ```
   
 Response:
@@ -27,7 +27,10 @@ Response:
 Request:
 
 ```bash
-curl https://onetimesecret.herokuapp.com/secrets/ef7b4f25c55a4cfe8abec9887cea1966?key=super_secret_pswd
+curl -H "Content-Type: application/json"  \
+  --request POST \
+  --data '{"key": "super_secret_pswd"}' \
+  http://127.0.0.1/secrets/ef7b4f25c55a4cfe8abec9887cea1966
 ```
 
 Response:
