@@ -15,8 +15,24 @@ def generate():
 	return random url using uuid library
 	"""
 
-	secret = request.json['secret']
-	key = request.json['key']
+	secret = ''
+	key = ''
+
+	if 'secret' in request.json:
+		secret = request.json['secret']
+	else:
+		return 'secret is missing', 422
+
+	if len (secret)<1:
+		return 'secret length < 1', 422
+
+	if 'key' in request.json:
+		key = request.json['key']
+	else:
+		return 'key is missing', 422
+
+	if len (key)<1:
+		return 'key length < 1', 422
 
 	crypted_secret = crypt.encrypt(secret, key)
 	crypted_secret['url'] = uuid.uuid4().hex
@@ -32,14 +48,22 @@ def generate():
 @app.route('/secrets/<string:secret_url>')
 def secrets(secret_url):
 	"""
-	Using 'key' in GET request to
+	Using JSON key 'key' in POST request to
 	decrypt secret with AES 256 algorithm
 	Then, delete secret from the database
 	"""
 
 	s = database.find_one({"url": secret_url})
 	if s:
-		key = request.args.get('key')
+		key = ''
+
+		if 'key' in request.json:
+			key = request.json['key']
+		else:
+			return 'key is missing', 422
+
+		if len (key)<1:
+			return 'key length < 1', 422
 
 		try:
 			decrypted_s = crypt.decrypt(s, key)
