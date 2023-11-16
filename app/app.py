@@ -15,8 +15,8 @@ def generate():
 	return random url using uuid library
 	"""
 
-	secret = ''
-	key = ''
+	secret: str = ''
+	key: str = ''
 
 	if 'secret' in request.json:
 		secret = request.json['secret']
@@ -34,7 +34,7 @@ def generate():
 	if len(key) < 1:
 		return 'key length < 1', 422
 
-	crypted_secret = crypt.encrypt(secret, key)
+	crypted_secret: dict[str, str] = crypt.encrypt(secret, key)
 	crypted_secret['url'] = uuid.uuid4().hex
 
 	try:
@@ -53,9 +53,9 @@ def secrets(secret_url):
 	Then, delete secret from the database
 	"""
 
-	s = database.find_one({"url": secret_url})
+	s: any = database.find_one({"url": secret_url})
 	if s:
-		key = ''
+		key: str = ''
 
 		if 'key' in request.json:
 			key = request.json['key']
@@ -66,7 +66,7 @@ def secrets(secret_url):
 			return 'key length < 1', 422
 
 		try:
-			decrypted_s = crypt.decrypt(s, key)
+			decrypted_s: str = crypt.decrypt(s, key)
 		except ValueError:
 			return 'Wrong password!'
 
