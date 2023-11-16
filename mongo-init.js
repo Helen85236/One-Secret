@@ -5,8 +5,8 @@ db.auth(process.env.MONGO_INITDB_ROOT_USERNAME, process.env.MONGO_INITDB_ROOT_PA
 db = db.getSiblingDB(process.env.MONGO_INITDB_DATABASE);
 
 db.createUser({
-    user: '1'+process.env.MONGO_INITDB_ROOT_USERNAME,
-    pwd:  '1'+process.env.MONGO_INITDB_ROOT_PASSWORD,
+    user: process.env.MONGO_INITDB_ROOT_USERNAME,
+    pwd:  process.env.MONGO_INITDB_ROOT_PASSWORD,
     roles: [
       {
         role: 'root',

@@ -3,7 +3,6 @@ version: '3.11'
 services:
   app_api:
 
-    platform: linux/amd64
     build:
       context: .
 

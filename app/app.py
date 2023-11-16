@@ -23,7 +23,7 @@ def generate():
 	else:
 		return 'secret is missing', 422
 
-	if len (secret)<1:
+	if len(secret) < 1:
 		return 'secret length < 1', 422
 
 	if 'key' in request.json:
@@ -31,7 +31,7 @@ def generate():
 	else:
 		return 'key is missing', 422
 
-	if len (key)<1:
+	if len(key) < 1:
 		return 'key length < 1', 422
 
 	crypted_secret = crypt.encrypt(secret, key)
@@ -62,7 +62,7 @@ def secrets(secret_url):
 		else:
 			return 'key is missing', 422
 
-		if len (key)<1:
+		if len(key) < 1:
 			return 'key length < 1', 422
 
 		try:
